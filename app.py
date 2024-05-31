@@ -5,7 +5,7 @@ import io
 
 # Function to call the prediction API
 def call_prediction_api(image):
-    url = "http://127.0.0.1:8000/predict"  # Replace with your API endpoint
+    url = "https://binbuddymvp-gufk4rxgcq-ew.a.run.app/predict"  # Replace with your API endpoint
     image_bytes = io.BytesIO()
     image.save(image_bytes, format='JPEG')
     image_bytes = image_bytes.getvalue()
