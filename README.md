@@ -1,4 +1,4 @@
-# Bin Buddy 🗑️
+# Bin Buddy Website
 
 Bin Buddy is a Streamlit app that classifies waste items using images uploaded by users, helping promote better recycling habits.
 
