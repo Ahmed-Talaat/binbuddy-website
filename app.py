@@ -72,7 +72,6 @@ if uploaded_file is not None:
     components.html(giphy_embed, width=800, height=400)
 
     image = Image.open(uploaded_file)
-    st.image(image, caption='Uploaded Image.', use_column_width=True)
 
     status_placeholder = st.empty()
     status_placeholder.write("Classifying...")
@@ -111,3 +110,10 @@ if uploaded_file is not None:
         {prediction_class}
     </div>
     """, unsafe_allow_html=True)
+
+    # Resize the image to 50% of the original size
+    width, height = image.size
+    resized_image = image.resize((width // 2, height // 2))
+
+    # Display the resized image below the prediction class
+    st.image(resized_image, caption='Uploaded Image (resized to 50%).', use_column_width=True)
