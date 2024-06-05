@@ -42,6 +42,9 @@ st.markdown("""
     .spacer {
         margin-top: 30px; /* Increase spacing between elements */
     }
+    .tight-spacing {
+        line-height: 1.2; /* Decrease line spacing */
+    }
     </style>
 """, unsafe_allow_html=True)
 
@@ -104,9 +107,9 @@ if uploaded_file is not None:
     elif prediction_class == "biological":
         prediction_class = f"<span class='underline'>Biomüll</span>, easy one ({round(prediction_score, 1)}% likely)!<br><div class='center'>Simply bring it to the <span style='color:brown; font-size:26px'><strong>BROWN</strong></span> bin this time..."
     elif prediction_class == "glass":
-        prediction_class = f"<span class='underline'>Glas</span>, I'm {round(prediction_score, 1)}% sure!<br><div class='center'>Look for the <span style='color:green; font-size:26px'><strong>GREEN</strong></span> bin and <span style='font-weight:bold;'>remember</span> to separate <em>Weiß</em> (transparent) from <em>Grün/Braunglass</em> (colored) glass.</div>"
+        prediction_class = f"<span class='underline'>Glas</span>, I'm {round(prediction_score, 1)}% sure!<br><div class='center'>Look for the <span style='color:green; font-size:26px'><strong>GREEN</strong></span> bin and <span style='font-weight:bold;'>remember</span> to separate <em>Weiß</em> (transparent) from <em>Grün/Braunglass</em> (colored) glass.</div><div class='center tight-spacing'><span style='font-size:18px'>TIP: some bottles and cans include the PFAND labels.<br>Recycle them at the supermarket and earn € back!</div>"
     elif prediction_class == "plastic":
-        prediction_class = f"<span class='underline'>Wertstoffe</span>, {round(prediction_score, 1)}% sure!<br><div class='center'><span style='color:#b3b300; font-size:26px'><strong>YELLOW</strong></span> or <span style='color:orange; font-size:26px'><strong>ORANGE</strong></span> bin, please ;)</div>"
+        prediction_class = f"<span class='underline'>Wertstoffe</span>, {round(prediction_score, 1)}% sure!<br><div class='center'><span style='color:#b3b300; font-size:26px'><strong>YELLOW</strong></span> or <span style='color:orange; font-size:26px'><strong>ORANGE</strong></span> bin, please ;)</div><div class='center tight-spacing'><span style='font-size:18px'>TIP: some bottles and cans include the PFAND labels.<br>Recycle them at the supermarket and earn € back!</div>"
 
     st.markdown(f"""
     <div class="center spacer">
