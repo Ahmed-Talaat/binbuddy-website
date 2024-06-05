@@ -39,6 +39,9 @@ st.markdown("""
     .stFileUploader > div > div {
         background-color: #e67215; /* Background color */
     }
+    .spacer {
+        margin-top: 30px; /* Increase spacing between elements */
+    }
     </style>
 """, unsafe_allow_html=True)
 
@@ -65,7 +68,7 @@ uploaded_file = st.file_uploader("Choose your garbage...", type=["jpg", "jpeg", 
 if uploaded_file is not None:
     # Add enlarged UI gif after subheader and before processing
     giphy_embed = """
-    <div style="display: flex; justify-content: center;">
+    <div style="display: flex; justify-content: flex-start;">
         <iframe src="https://giphy.com/embed/7Zgj8WBkzmaeqxQmZM" width="640" height="336" style="border:none;" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
     </div>
     """
@@ -85,28 +88,28 @@ if uploaded_file is not None:
 
     # Display the results with confetti
     confetti_embed = """
-    <div style="display: flex; justify-content: center;">
+    <div style="display: flex; justify-content: flex-start;">
         <iframe src="https://giphy.com/embed/lPoOHG39XAlV4it61H" width="800" height="400" style="border:none;" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
     </div>
     """
-    components.html(confetti_embed, width=800, height=200)
+    components.html(confetti_embed, width=700, height=200)
 
     prediction_score = result['score'] * 100  # Convert to percentage
 
     prediction_class = result['prediction']
     if prediction_class == "trash":
-        prediction_class = f"This is <span class='underline'>Restmüll</span> at {round(prediction_score, 1)}%...<br><div class='center'>If I were you, I'd head to the <span style='color:black; font-size:26px'><strong>BLACK</strong></span> bin!</div>"
+        prediction_class = f"This is <span class='underline'>Restmüll</span> at {round(prediction_score, 1)}%...<br><div class='center'>If I were you, I'd head towards the <span style='color:black; font-size:26px'><strong>BLACK</strong></span> bin!</div>"
     elif prediction_class == "paper":
         prediction_class = f"Looks like <span class='underline'>Papier</span> ({round(prediction_score, 1)}% likely).<br><div class='center'><span style='color:blue; font-size:26px'><strong>BLUE</strong></span> is the bin color you're looking for.</div>"
     elif prediction_class == "biological":
-        prediction_class = f"<span class='underline'>Biomüll</span>, easy one ({round(prediction_score, 1)}% likely)!<br><div class='center'>Either the <span style='color:brown; font-size:26px'><strong>BROWN</strong></span> or the <span style='color:green; font-size:26px'><strong>GREEN</strong></span> bin</div>"
+        prediction_class = f"<span class='underline'>Biomüll</span>, easy one ({round(prediction_score, 1)}% likely)!<br><div class='center'>Simply bring it to the <span style='color:brown; font-size:26px'><strong>BROWN</strong></span> bin this time..."
     elif prediction_class == "glass":
-        prediction_class = f"<span class='underline'>Glas</span>, I'm {round(prediction_score, 1)}% sure!<br><div class='center'>Look for the <span style='color:white; background-color:black; font-size:26px'><strong>WHITE</strong></span> bin and <span style='font-weight:bold;'>remember</span> to separate <em>Weiß</em> (transparent) and <em>Grün/Braunglass</em> (colored) glass.</div>"
+        prediction_class = f"<span class='underline'>Glas</span>, I'm {round(prediction_score, 1)}% sure!<br><div class='center'>Look for the <span style='color:green; font-size:26px'><strong>GREEN</strong></span> bin and <span style='font-weight:bold;'>remember</span> to separate <em>Weiß</em> (transparent) from <em>Grün/Braunglass</em> (colored) glass.</div>"
     elif prediction_class == "plastic":
         prediction_class = f"<span class='underline'>Wertstoffe</span>, {round(prediction_score, 1)}% sure!<br><div class='center'><span style='color:#b3b300; font-size:26px'><strong>YELLOW</strong></span> or <span style='color:orange; font-size:26px'><strong>ORANGE</strong></span> bin, please ;)</div>"
 
     st.markdown(f"""
-    <div class="center">
+    <div class="center spacer">
         {prediction_class}
     </div>
     """, unsafe_allow_html=True)
@@ -115,5 +118,6 @@ if uploaded_file is not None:
     width, height = image.size
     resized_image = image.resize((width // 2, height // 2))
 
-    # Display the resized image below the prediction class
+    # Display the resized image below the prediction class with increased spacing
+    st.markdown('<div class="spacer"></div>', unsafe_allow_html=True)
     st.image(resized_image, caption='Uploaded Image (resized to 50%).', use_column_width=True)
