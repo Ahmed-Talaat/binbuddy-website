@@ -66,17 +66,17 @@ st.markdown("""
 
 st.subheader("Helping you classify waste items effortlessly!")
 
+# Add enlarged UI gif after subheader and before file uploader
+giphy_embed = """
+<div style="display: flex; justify-content: flex-start;">
+    <iframe src="https://giphy.com/embed/7Zgj8WBkzmaeqxQmZM" width="640" height="336" style="border:none;" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+</div>
+"""
+components.html(giphy_embed, width=800, height=400)
+
 uploaded_file = st.file_uploader("Choose your garbage...", type=["jpg", "jpeg", "png"])
 
 if uploaded_file is not None:
-    # Add enlarged UI gif after subheader and before processing
-    giphy_embed = """
-    <div style="display: flex; justify-content: flex-start;">
-        <iframe src="https://giphy.com/embed/7Zgj8WBkzmaeqxQmZM" width="640" height="336" style="border:none;" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
-    </div>
-    """
-    components.html(giphy_embed, width=800, height=400)
-
     image = Image.open(uploaded_file)
 
     status_placeholder = st.empty()
