@@ -42,6 +42,12 @@ st.markdown("""
     .spacer {
         margin-top: 30px; /* Increase spacing between elements */
     }
+    .tight-spacing {
+        line-height: 1.2; /* Decrease line spacing */
+    }
+    .image-spacing {
+        margin-top: 20px; /* Add spacing before image */
+    }
     </style>
 """, unsafe_allow_html=True)
 
@@ -63,17 +69,17 @@ st.markdown("""
 
 st.subheader("Helping you classify waste items effortlessly!")
 
+# Always show the first giphy
+giphy_embed = """
+<div style="display: flex; justify-content: flex-start;">
+    <iframe src="https://giphy.com/embed/7Zgj8WBkzmaeqxQmZM" width="640" height="336" style="border:none;" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+</div>
+"""
+components.html(giphy_embed, width=800, height=400)
+
 uploaded_file = st.file_uploader("Choose your garbage...", type=["jpg", "jpeg", "png"])
 
 if uploaded_file is not None:
-    # Add enlarged UI gif after subheader and before processing
-    giphy_embed = """
-    <div style="display: flex; justify-content: flex-start;">
-        <iframe src="https://giphy.com/embed/7Zgj8WBkzmaeqxQmZM" width="640" height="336" style="border:none;" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
-    </div>
-    """
-    components.html(giphy_embed, width=800, height=400)
-
     image = Image.open(uploaded_file)
 
     status_placeholder = st.empty()
@@ -104,9 +110,9 @@ if uploaded_file is not None:
     elif prediction_class == "biological":
         prediction_class = f"<span class='underline'>Biomüll</span>, easy one ({round(prediction_score, 1)}% likely)!<br><div class='center'>Simply bring it to the <span style='color:brown; font-size:26px'><strong>BROWN</strong></span> bin this time..."
     elif prediction_class == "glass":
-        prediction_class = f"<span class='underline'>Glas</span>, I'm {round(prediction_score, 1)}% sure!<br><div class='center'>Look for the <span style='color:green; font-size:26px'><strong>GREEN</strong></span> bin and <span style='font-weight:bold;'>remember</span> to separate <em>Weiß</em> (transparent) from <em>Grün/Braunglass</em> (colored) glass.</div>"
+        prediction_class = f"<span class='underline'>Glas</span>, I'm {round(prediction_score, 1)}% sure!<br><div class='center'>Look for the <span style='color:green; font-size:26px'><strong>GREEN</strong></span> bin and <span style='font-weight:bold;'>remember</span> to separate <em>Weiß</em> (transparent) from <em>Grün/Braunglass</em> (colored) glass.</div><div class='center tight-spacing'><span style='font-size:18px'>TIP: some bottles and cans include the PFAND labels (below).<br>Recycle them at the supermarket and earn € back!</div><div class='center image-spacing'><img src='https://admin.integreat-app.de/media/regions/266/2023/07/Dpgkennz.svg.png' width='50' height='50'></div>"
     elif prediction_class == "plastic":
-        prediction_class = f"<span class='underline'>Wertstoffe</span>, {round(prediction_score, 1)}% sure!<br><div class='center'><span style='color:#b3b300; font-size:26px'><strong>YELLOW</strong></span> or <span style='color:orange; font-size:26px'><strong>ORANGE</strong></span> bin, please ;)</div>"
+        prediction_class = f"<span class='underline'>Wertstoffe</span>, {round(prediction_score, 1)}% sure!<br><div class='center'><span style='color:#b3b300; font-size:26px'><strong>YELLOW</strong></span> or <span style='color:orange; font-size:26px'><strong>ORANGE</strong></span> bin, please ;)</div><div class='center tight-spacing'><span style='font-size:18px'>TIP: some bottles and cans include the PFAND labels (below).<br>Recycle them at the supermarket and earn € back!</div><div class='center image-spacing'><img src='https://admin.integreat-app.de/media/regions/266/2023/07/Dpgkennz.svg.png' width='50' height='50'></div>"
 
     st.markdown(f"""
     <div class="center spacer">
